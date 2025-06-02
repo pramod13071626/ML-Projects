@@ -1,0 +1,54 @@
+# 🏏 IPL First-Innings Score Prediction
+
+This project predicts the first-innings score in an IPL (Indian Premier League) cricket match using machine learning models. It includes comprehensive EDA, feature engineering, and multiple regression algorithms to forecast scores accurately based on match context.
+
+🔗 **Project Folder**: [Click here to view in repository](https://github.com/pramod13071626/ML-Projects/tree/main/IPL-Score-Prediction)
+
+---
+
+## 📌 Objective
+
+To build a regression model that can predict the total first-innings score based on:
+- Current match progress (overs, runs, wickets)
+- Teams involved
+- Venue
+- On-field players (batsmen and bowlers)
+
+---
+
+## 📊 Workflow
+
+### 1. Data Collection
+- IPL match data is collected from Kaggle or similar sources.
+- Data includes match stats, teams, players, venue, runs, overs, etc.
+
+### 2. Data Preprocessing
+- Handling missing values
+- Encoding categorical variables (Label Encoding / One-Hot Encoding)
+- Dropping irrelevant features
+
+### 3. Exploratory Data Analysis (EDA)
+- Visualization of scores across teams and venues
+- Distribution analysis of runs and overs
+- Correlation analysis of numerical features
+
+### 4. Feature Engineering
+- Extracting meaningful features like:
+  - Total wickets fallen
+  - Run rate
+  - Match progress
+
+### 5. Model Building
+- Models used:
+  - Linear Regression
+  - Decision Tree Regressor
+  - Random Forest Regressor
+
+- Performance Metrics:
+  - Mean Absolute Error (MAE)
+  - Root Mean Squared Error (RMSE)
+  - R² Score
+
+### 6. Model Evaluation
+- Compare models and select the best based on validation performance
+- Visualize predictions vs actual scores
