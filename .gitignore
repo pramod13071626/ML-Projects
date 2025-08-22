@@ -1,1 +1,4 @@
-"*.pkl" 
+*.pkl
+*.h5
+*.model
+*.joblib
