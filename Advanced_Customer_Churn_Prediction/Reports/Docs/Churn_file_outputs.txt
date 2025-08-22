@@ -1,0 +1,130 @@
+--- Step 1: Data Preprocessing (Advanced and Robust) ---
+
+1. Dataset Loaded. Initial 5 rows:
+   customerID  gender  SeniorCitizen Partner  ...              PaymentMethod  MonthlyCharges TotalCharges Churn
+0  7590-VHVEG  Female              0     Yes  ...           Electronic check           29.85        29.85    No      
+1  5575-GNVDE    Male              0      No  ...               Mailed check           56.95       1889.5    No      
+2  3668-QPYBK    Male              0      No  ...               Mailed check           53.85       108.15   Yes      
+3  7795-CFOCW    Male              0      No  ...  Bank transfer (automatic)           42.30      1840.75    No      
+4  9237-HQITU  Female              0      No  ...           Electronic check           70.70       151.65   Yes      
+
+[5 rows x 21 columns]
+
+Basic data cleaning completed: TotalCharges handled, customerID dropped, service values standardized, Churn mapped.  
+Number of missing values in 'TotalCharges' after handling: 0
+
+--- Advanced EDA: Visualizing Data Distributions and Relationships ---
+Saved 'numerical_distributions_by_churn.png'.
+Saved 'categorical_churn_rates.png'.
+Saved 'numerical_correlation_matrix.png'.
+
+--- Feature Engineering: Creating New Informative Features ---
+Created 'MonthlyCharges_x_Tenure' interaction feature.
+Created 'TenureGroup'.
+
+--- Outlier Treatment: Capping Outliers ---
+Capped 'MonthlyCharges' outliers. Bounds: -46.02-171.38
+Capped 'TotalCharges' outliers. Bounds: -4683.52-8868.67
+
+--- One-Hot Encoding ---
+Dataset shape after encoding: (7043, 30)
+Processed CSV saved: 'C:\Users\pramo\Desktop\DA\DE\clg\artifacts\telco_customer_churn_processed.csv'
+CSV exists. Size: 1142.47 KB
+
+--- Train-Test Split ---
+X_train: (5634, 29), X_test: (1409, 29)
+Numerical features scaled.
+SMOTE applied to balance dataset.
+Joblib files saved in 'C:\Users\pramo\Desktop\DA\DE\clg\artifacts': ['best_lr_model.pkl', 'best_rf_model.pkl', 'df_for_fairness.pkl', 'scaler.pkl', 'xgb_model.pkl', 'X_columns.pkl', 'X_test.pkl', 'X_train_resampled.pkl', 'y_test.pkl', 'y_train_resampled.pkl']
+
+--- Preprocessing Complete ---
+
+
+--- Step 2: Model Implementation with Hyperparameter Tuning and Advanced Models ---
+
+Processed data loaded successfully.
+
+Performing GridSearchCV for Logistic Regression...
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+Best parameters for Logistic Regression: {'C': 100, 'solver': 'lbfgs'}
+Best F1-score on CV for Logistic Regression: 0.8033
+
+Performing RandomizedSearchCV for Random Forest Classifier...
+Fitting 5 folds for each of 50 candidates, totalling 250 fits
+Best parameters for Random Forest Classifier: {'n_estimators': 300, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': 'log2', 'max_depth': 30, 'bootstrap': False}
+Best F1-score on CV for Random Forest Classifier: 0.8557
+
+Training XGBoost Classifier...
+XGBoost Classifier Trained.
+
+--- Model Implementation Complete ---
+
+--- Step 3: Comprehensive Evaluation (Tuned Models & Advanced Metrics) ---
+
+Test data, models, column names, and fairness dataframe loaded successfully.
+
+--- Evaluation for Tuned Logistic Regression ---
+Accuracy: 0.7452
+Precision: 0.5150
+Recall: 0.6872
+F1-Score: 0.5888
+ROC AUC Score: 0.8150
+Confusion Matrix:
+ [[793 242]
+ [117 257]]
+
+--- Evaluation for Tuned Random Forest Classifier ---
+Accuracy: 0.7693
+Precision: 0.5630
+Recall: 0.5856
+F1-Score: 0.5740
+ROC AUC Score: 0.8069
+Confusion Matrix:
+ [[865 170]
+ [155 219]]
+
+--- Evaluation for XGBoost Classifier ---
+Accuracy: 0.7608
+Precision: 0.5394
+Recall: 0.6765
+F1-Score: 0.6002
+ROC AUC Score: 0.8204
+Confusion Matrix:
+ [[819 216]
+ [121 253]]
+
+Generating ROC Curve for all models comparison...
+ROC Curve plot for all models saved as 'artifacts/roc_curve_all_models.png'.
+
+--- Model Interpretability: SHAP Values for XGBoost (Best Model Example) ---
+SHAP feature importance plot saved as 'artifacts/shap_feature_importance_xgb.png'.
+
+--- Fairness Assessment using Fairlearn ---
+
+Fairness evaluation for 'gender_Male':
+Accuracy by Gender (0=Female, 1=Male):
+ gender_Male
+False    0.768559
+True     0.753463
+Name: accuracy_score, dtype: float64
+Demographic Parity Ratio (Gender): 0.9128 (Closer to 1 is fairer)
+Recall by Gender:
+ gender_Male
+False    0.652850
+True     0.701657
+Name: recall_score, dtype: float64
+
+Fairness evaluation for 'SeniorCitizen':
+Accuracy by SeniorCitizen (0=No, 1=Yes):
+ SeniorCitizen
+0    0.772536
+1    0.698198
+Name: accuracy_score, dtype: float64
+Demographic Parity Ratio (SeniorCitizen): 0.5379 (Closer to 1 is fairer)
+Recall by SeniorCitizen:
+ SeniorCitizen
+0    0.641304
+1    0.775510
+Name: recall_score, dtype: float64
+
+--- Comprehensive Evaluation Complete ---
